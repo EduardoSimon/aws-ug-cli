@@ -1,6 +1,8 @@
 module github.com/myaws
 
-go 1.19
+go 1.22
+
+toolchain go1.24.1
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.21.0
@@ -27,6 +29,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.15.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.21.1 // indirect
 	github.com/aws/smithy-go v1.14.2 // indirect
+	github.com/brianvoe/gofakeit/v7 v7.2.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect

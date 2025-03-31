@@ -1,12 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
-	"strings"
-
-	"github.com/olekukonko/tablewriter"
 	"github.com/myaws/service"
 	"github.com/spf13/cobra"
 )
