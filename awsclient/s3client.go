@@ -3,59 +3,67 @@ package awsclient
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// s3Client implements the S3Client interface
-type s3Client struct {
+type S3Client struct {
 	client *s3.Client
 }
 
-// NewS3Client creates a new S3 client
-func NewS3Client() (S3Client, error) {
-	// AWS credentials can be provided through environment variables:
-	// - AWS_ACCESS_KEY_ID
-	// - AWS_SECRET_ACCESS_KEY
-	// - AWS_SESSION_TOKEN (optional)
-	// - AWS_REGION
-	cfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithRegion(os.Getenv("AWS_REGION")),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("unable to load AWS config: %v", err)
-	}
-
-	return &s3Client{
-		client: s3.NewFromConfig(cfg),
-	}, nil
+type ObjectInfo struct {
+	Key  string
+	Size int64
 }
 
-// ListObjects lists objects in a bucket with an optional prefix
-func (c *s3Client) ListObjects(bucket string, prefix string) ([]ObjectInfo, error) {
-	input := &s3.ListObjectsV2Input{
-		Bucket: aws.String(bucket),
+func NewS3Client(cfg aws.Config) *S3Client {
+	client := s3.NewFromConfig(cfg)
+	return &S3Client{
+		client: client,
 	}
+}
 
-	if prefix != "" {
-		input.Prefix = aws.String(prefix)
-	}
+func (c *S3Client) ListFolders(ctx context.Context, bucket, prefix string) ([]string, error) {
+	fmt.Printf("Listing folders in bucket: %s with prefix: %s\n", bucket, prefix)
 
-	resp, err := c.client.ListObjectsV2(context.TODO(), input)
+	result, err := c.client.ListBuckets(ctx, &s3.ListBucketsInput{})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to list buckets: %w", err)
 	}
 
-	objects := make([]ObjectInfo, 0, len(resp.Contents))
-	for _, obj := range resp.Contents {
-		objects = append(objects, ObjectInfo{
-			Key:  *obj.Key,
-			Size: obj.Size,
-		})
-	}
+	fmt.Printf("Found %d buckets\n", len(result.Buckets))
 
-	return objects, nil
-} 
+	// First check if bucket exists
+	_, err = c.client.HeadBucket(ctx, &s3.HeadBucketInput{
+		Bucket: aws.String(bucket),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("bucket %s does not exist or you don't have permission to access it: %w", bucket, err)
+	}
+	return nil, nil
+
+	// input := &s3.ListObjectsV2Input{
+	// 	Bucket:    aws.String(bucket),
+	// 	Delimiter: aws.String("/"),
+	// }
+
+	// result, err := c.client.ListObjectsV2(ctx, input)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to list objects in bucket %s with prefix %s: %w", bucket, prefix, err)
+	// }
+
+	// fmt.Printf("Found %d common prefixes and %d objects\n", len(result.CommonPrefixes), len(result.Contents))
+
+	// if len(result.CommonPrefixes) == 0 {
+	// 	return nil, fmt.Errorf("no folders found in bucket %s with prefix %s. Expected folder structure: apps/config/${app}/config", bucket, prefix)
+	// }
+
+	// var folders []string
+	// for _, prefix := range result.CommonPrefixes {
+	// 	folders = append(folders, *prefix.Prefix)
+	// 	fmt.Printf("Found folder: %s\n", *prefix.Prefix)
+	// }
+
+	// return folders, nil
+}
