@@ -19,5 +19,11 @@ variable "db_name" {
 variable "lambda_name" {
   description = "Lambda function name."
   type        = string
-  default     = "logs-exporter"
+  default     = "flush-cache"
+}
+
+variable "lambda_runtime" {
+  description = "Lambda function runtime."
+  type        = string
+  default     = "python3.13"
 }
