@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"context"
 	"fmt"
 
+	"github.com/aws-ug-cli/awsclient"
 	"github.com/aws-ug-cli/service"
 	"github.com/spf13/cobra"
 )
@@ -38,7 +40,14 @@ func init() {
 				Format:    format,
 			}
 
-			return service.DumpDynamoDB(options)
+			awscfg, err := awsclient.LoadAWSConfig(context.Background())
+			if err != nil {
+				return fmt.Errorf("failed to load AWS config: %v", err)
+			}
+
+			client := awsclient.NewDynamoDBClient(awscfg)
+
+			return service.DumpDynamoDB(options, client)
 		},
 	}
 

@@ -9,8 +9,3 @@ var dbCmd = &cobra.Command{
 	Short: "Database operations",
 	Long:  `Commands for interacting with AWS databases.`,
 }
-
-func init() {
-
-	addCommand(dbCmd)
-}

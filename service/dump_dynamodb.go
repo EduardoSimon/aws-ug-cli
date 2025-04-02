@@ -20,31 +20,28 @@ type DumpDynamoDBOptions struct {
 
 var dynamoDBClient awsclient.DynamoDBClient
 
-// SetDynamoDBClient sets the DynamoDB client for testing purposes
 func SetDynamoDBClient(client awsclient.DynamoDBClient) {
 	dynamoDBClient = client
 }
 
-// DumpDynamoDB dumps data from a DynamoDB table to a file or stdout
-func DumpDynamoDB(options DumpDynamoDBOptions) error {
-	if dynamoDBClient == nil {
-		client, err := awsclient.NewDynamoDBClient()
-		if err != nil {
-			return fmt.Errorf("failed to create DynamoDB client: %v", err)
-		}
-		dynamoDBClient = client
-	}
-
+func DumpDynamoDB(options DumpDynamoDBOptions, client *awsclient.DynamoDBClient) error {
 	input := &dynamodb.ScanInput{
 		TableName: &options.TableName,
 	}
 
-	result, err := dynamoDBClient.Scan(context.TODO(), input)
+	// First check if table exists
+	_, err := client.DescribeTable(context.TODO(), &dynamodb.DescribeTableInput{
+		TableName: &options.TableName,
+	})
+	if err != nil {
+		return fmt.Errorf("table %s does not exist: %v", options.TableName, err)
+	}
+
+	result, err := client.Scan(context.TODO(), input)
 	if err != nil {
 		return fmt.Errorf("failed to scan table: %v", err)
 	}
 
-	// Convert DynamoDB items to JSON
 	items := make([]map[string]interface{}, len(result.Items))
 	for i, item := range result.Items {
 		items[i] = make(map[string]interface{})

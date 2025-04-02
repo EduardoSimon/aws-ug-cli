@@ -15,7 +15,6 @@ import (
 var (
 	numProducts int
 	tableName   string
-	host        string
 )
 
 var seedCmd = &cobra.Command{
@@ -166,7 +165,6 @@ func init() {
 	WorkshopCmd.AddCommand(seedCmd)
 	seedCmd.Flags().IntVarP(&numProducts, "num", "n", 10, "Number of products to generate")
 	seedCmd.Flags().StringVarP(&tableName, "table", "t", "", "DynamoDB table name")
-	seedCmd.Flags().StringVarP(&host, "host", "h", "", "DynamoDB API host")
 
 	seedCmd.MarkFlagRequired("table")
 }

@@ -40,18 +40,11 @@ func init() {
 		},
 	}
 
-	// Add flags to the command
 	listAppConfigCmd.Flags().String("bucket", "", "S3 bucket name (required)")
 	listAppConfigCmd.Flags().String("prefix", "", "Object prefix filter")
 	listAppConfigCmd.Flags().String("output", "table", "Output format (table or json)")
 
-	// Mark required flags
 	listAppConfigCmd.MarkFlagRequired("bucket")
 
-	// Add the command to the root command
-	addCommand(listAppConfigCmd)
+	rootCmd.AddCommand(listAppConfigCmd)
 }
-
-// outputJSON outputs the objects as JSON
-
-// outputTable outputs the objects as a formatted table
