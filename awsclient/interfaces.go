@@ -1,12 +1,14 @@
 package awsclient
 
 import (
+	"context"
+
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 )
 
 // DynamoDBClient interface defines the methods for DynamoDB operations
 type DynamoDBClient interface {
-	ScanTable(tableName string) (*dynamodb.ScanOutput, error)
+	Scan(ctx context.Context, params *dynamodb.ScanInput, optFns ...func(*dynamodb.Options)) (*dynamodb.ScanOutput, error)
 }
 
 // ObjectInfo represents information about an S3 object
@@ -25,4 +27,4 @@ type S3Client interface {
 type ECSClient interface {
 	// UpdateServiceTaskCount updates the desired count of tasks for a service
 	UpdateServiceTaskCount(cluster string, service string, desiredCount int) error
-} 
+}

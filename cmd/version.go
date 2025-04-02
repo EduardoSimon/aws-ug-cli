@@ -16,10 +16,10 @@ func init() {
 		Short: "Print the version of myaws",
 		Long:  `Print the version of myaws`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("myaws version %s\n", Version)
+			fmt.Fprintf(cmd.OutOrStdout(), "myaws version %s\n", Version)
 		},
 	}
 
 	// Add the version command to the root command
 	addCommand(versionCmd)
-} 
+}

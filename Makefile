@@ -1,4 +1,4 @@
-.PHONY: up down status clean seed
+.PHONY: up down status clean seed test
 
 # Start the DynamoDB local container
 up:
@@ -23,3 +23,9 @@ logs:
 # Generate and seed catalog data into DynamoDB
 seed:
 	go run . seed
+
+# Run all tests
+test:
+	docker-compose up -d
+	go test ./... -v
+	docker-compose down

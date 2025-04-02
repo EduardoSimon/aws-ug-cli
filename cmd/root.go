@@ -33,4 +33,5 @@ func addCommand(cmd *cobra.Command) {
 
 func init() {
 	rootCmd.AddCommand(workshop.WorkshopCmd)
+	rootCmd.AddCommand(dbCmd)
 }

@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/myaws/service"
 	"github.com/spf13/cobra"
 )
@@ -19,7 +21,14 @@ func init() {
 		Short: "Dump data from a DynamoDB table",
 		Long:  `Dump all items from a specified DynamoDB table to a file or stdout.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			tableName, _ := cmd.Flags().GetString("table")
+			tableName, err := cmd.Flags().GetString("table")
+			if err != nil {
+				return fmt.Errorf("failed to get table flag: %v", err)
+			}
+			if tableName == "" {
+				return fmt.Errorf("table flag is required")
+			}
+
 			output, _ := cmd.Flags().GetString("output")
 			format, _ := cmd.Flags().GetString("format")
 

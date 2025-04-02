@@ -44,10 +44,6 @@ func NewDynamoDBClient() (DynamoDBClient, error) {
 	}, nil
 }
 
-func (c *dynamoDBClient) ScanTable(tableName string) (*dynamodb.ScanOutput, error) {
-	input := &dynamodb.ScanInput{
-		TableName: &tableName,
-	}
-
-	return c.client.Scan(context.TODO(), input)
+func (c *dynamoDBClient) Scan(ctx context.Context, params *dynamodb.ScanInput, optFns ...func(*dynamodb.Options)) (*dynamodb.ScanOutput, error) {
+	return c.client.Scan(ctx, params, optFns...)
 }
