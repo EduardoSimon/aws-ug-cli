@@ -1,4 +1,4 @@
-# aws-ug-cli CLI
+# aws-ug-cli
 
 A CLI tool to simplify AWS interactions, built with Go and the Cobra library.
 
