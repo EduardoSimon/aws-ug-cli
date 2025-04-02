@@ -1,0 +1,5 @@
+*.zip
+*.terraform
+.terraform.*
+terraform.tfstate*
+aws-ug-cli

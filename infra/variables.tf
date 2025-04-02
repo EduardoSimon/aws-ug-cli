@@ -13,11 +13,17 @@ variable "s3_name" {
 variable "db_name" {
   description = "DynamoDB table name."
   type        = string
-  default     = "Products"
+  default     = "products"
 }
 
 variable "lambda_name" {
   description = "Lambda function name."
   type        = string
-  default     = "logs-exporter"
+  default     = "flush-cache"
+}
+
+variable "lambda_runtime" {
+  description = "Lambda function runtime."
+  type        = string
+  default     = "python3.13"
 }
