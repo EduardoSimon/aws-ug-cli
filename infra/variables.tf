@@ -13,7 +13,7 @@ variable "s3_name" {
 variable "db_name" {
   description = "DynamoDB table name."
   type        = string
-  default     = "catalog"
+  default     = "Products"
 }
 
 variable "lambda_name" {
