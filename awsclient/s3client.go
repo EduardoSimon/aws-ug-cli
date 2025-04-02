@@ -27,6 +27,7 @@ func NewS3Client(cfg aws.Config) *S3Client {
 func (c *S3Client) ListFolders(ctx context.Context, bucket, prefix string) ([]string, error) {
 	input := &s3.ListObjectsV2Input{
 		Bucket:    aws.String(bucket),
+		Prefix:    aws.String(prefix),
 		Delimiter: aws.String("/"),
 	}
 
@@ -35,8 +36,6 @@ func (c *S3Client) ListFolders(ctx context.Context, bucket, prefix string) ([]st
 		return nil, fmt.Errorf("failed to list objects in bucket %s with prefix %s: %w", bucket, prefix, err)
 	}
 
-	fmt.Printf("Found %d common prefixes and %d objects\n", len(result.CommonPrefixes), len(result.Contents))
-
 	if len(result.CommonPrefixes) == 0 {
 		return nil, fmt.Errorf("no folders found in bucket %s with prefix %s. Expected folder structure: apps/config/${app}/config", bucket, prefix)
 	}
@@ -44,7 +43,6 @@ func (c *S3Client) ListFolders(ctx context.Context, bucket, prefix string) ([]st
 	var folders []string
 	for _, prefix := range result.CommonPrefixes {
 		folders = append(folders, *prefix.Prefix)
-		fmt.Printf("Found folder: %s\n", *prefix.Prefix)
 	}
 
 	return folders, nil

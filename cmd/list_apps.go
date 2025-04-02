@@ -30,19 +30,13 @@ For example:
 
 		s3Client := awsclient.NewS3Client(awscfg)
 
-		folders, err := service.ListApps(ctx, s3Client)
+		apps, err := service.ListApps(ctx, s3Client)
 		if err != nil {
 			return err
 		}
 
-		if len(folders) == 0 {
-			fmt.Println("No apps found")
-			return nil
-		}
-
-		fmt.Println("Found apps:")
-		for _, folder := range folders {
-			fmt.Printf("- %s\n", folder)
+		if len(apps) == 0 {
+			return fmt.Errorf("no apps found")
 		}
 
 		return nil
