@@ -1,4 +1,4 @@
-package cmd
+package workshop
 
 import (
 	"encoding/json"
@@ -9,39 +9,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type Product struct {
-	ID          string    `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Price       float64   `json:"price"`
-	Category    string    `json:"category"`
-	Brand       string    `json:"brand"`
-	Stock       int       `json:"stock"`
-	Rating      float64   `json:"rating"`
-	Tags        []string  `json:"tags"`
-	CreatedAt   string    `json:"created_at"`
-	UpdatedAt   string    `json:"updated_at"`
-}
-
 var (
 	numProducts int
 	outputFile  string
 )
 
-var workshopUtilsCmd = &cobra.Command{
-	Use:   "workshop-utils",
-	Short: "Workshop utility commands",
-	Long:  `A collection of utility commands for workshop purposes.`,
-}
-
 var generateCatalogCmd = &cobra.Command{
 	Use:   "generate-catalog",
-	Short: "Generate fake e-commerce catalog data",
-	Long: `Generate fake e-commerce catalog data in JSON format.
-This command creates realistic product data including names, descriptions, prices, and other attributes.`,
+	Short: "Generate fake catalog data",
+	Long:  `Generate fake catalog data for seeding DynamoDB.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		products := make([]Product, numProducts)
-		
+
 		categories := []string{
 			"Electronics", "Clothing", "Books", "Home & Garden",
 			"Sports", "Beauty", "Toys", "Food & Beverage",
@@ -90,9 +69,8 @@ This command creates realistic product data including names, descriptions, price
 }
 
 func init() {
-	rootCmd.AddCommand(workshopUtilsCmd)
-	workshopUtilsCmd.AddCommand(generateCatalogCmd)
+	WorkshopCmd.AddCommand(generateCatalogCmd)
 
 	generateCatalogCmd.Flags().IntVarP(&numProducts, "num", "n", 10, "Number of products to generate")
 	generateCatalogCmd.Flags().StringVarP(&outputFile, "output", "o", "", "Output file path (if not specified, prints to stdout)")
-} 
+}

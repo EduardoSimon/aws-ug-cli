@@ -2,6 +2,8 @@ package awsclient
 
 import (
 	"context"
+	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -15,9 +17,16 @@ type s3Client struct {
 
 // NewS3Client creates a new S3 client
 func NewS3Client() (S3Client, error) {
-	cfg, err := config.LoadDefaultConfig(context.TODO())
+	// AWS credentials can be provided through environment variables:
+	// - AWS_ACCESS_KEY_ID
+	// - AWS_SECRET_ACCESS_KEY
+	// - AWS_SESSION_TOKEN (optional)
+	// - AWS_REGION
+	cfg, err := config.LoadDefaultConfig(context.TODO(),
+		config.WithRegion(os.Getenv("AWS_REGION")),
+	)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to load AWS config: %v", err)
 	}
 
 	return &s3Client{
