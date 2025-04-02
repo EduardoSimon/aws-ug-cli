@@ -1,5 +1,14 @@
 package awsclient
 
+import (
+	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+)
+
+// DynamoDBClient interface defines the methods for DynamoDB operations
+type DynamoDBClient interface {
+	ScanTable(tableName string) (*dynamodb.ScanOutput, error)
+}
+
 // ObjectInfo represents information about an S3 object
 type ObjectInfo struct {
 	Key  string

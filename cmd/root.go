@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/myaws/cmd/workshop"
 	"github.com/spf13/cobra"
 )
 
@@ -28,4 +29,8 @@ func ExecuteForTest(version string) *cobra.Command {
 // Add a new command to the root command
 func addCommand(cmd *cobra.Command) {
 	rootCmd.AddCommand(cmd)
-} 
+}
+
+func init() {
+	rootCmd.AddCommand(workshop.WorkshopCmd)
+}
