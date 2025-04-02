@@ -65,30 +65,27 @@ Displays the current version of the CLI.
 aws-ug-cli version
 ```
 
-### List App Config
+### List Apps
 
-Lists configuration files from an S3 bucket.
-
-```bash
-# Basic usage (table output)
-aws-ug-cli list-app-config --bucket your-bucket-name
-
-# With prefix filter
-aws-ug-cli list-app-config --bucket your-bucket-name --prefix config/
-
-# JSON output
-aws-ug-cli list-app-config --bucket your-bucket-name --output json
-```
-
-### Restart App (Proof of Concept)
-
-A stub command for restarting an application running on ECS.
+Lists configured apps.
 
 ```bash
-aws-ug-cli restart-app --cluster your-cluster --service your-service
+aws-ug-cli list-apps
 ```
 
-This command is intentionally left incomplete for demonstration purposes. It will display a message indicating that the implementation is incomplete.
+### Flush cache
+
+Flush cache from a given domain
+
+```bash
+aws-ug-cli cache flush --domain <your-domain>
+```
+
+### Dump the a db table
+
+```bash
+aws-ug-cli db dump --table Products
+```
 
 ## Architecture
 
@@ -99,10 +96,3 @@ The CLI follows a layered architecture:
 3. **awsclient layer**: Provides interfaces and implementations for AWS services
 
 This separation allows for easier testing and maintenance.
-
-## Future Enhancements
-
-- Complete the `restart-app` command to actually restart ECS services
-- Add more AWS service integrations
-- Add support for profiles and regions
-- Implement pagination for listing objects 
