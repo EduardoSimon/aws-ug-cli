@@ -13,10 +13,10 @@ func init() {
 	// Create the version command
 	versionCmd := &cobra.Command{
 		Use:   "version",
-		Short: "Print the version of myaws",
-		Long:  `Print the version of myaws`,
+		Short: "Print the version of aws-ug-cli",
+		Long:  `Print the version of aws-ug-cli`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Fprintf(cmd.OutOrStdout(), "myaws version %s\n", Version)
+			fmt.Fprintf(cmd.OutOrStdout(), "aws-ug-cli version %s\n", Version)
 		},
 	}
 

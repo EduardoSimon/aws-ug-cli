@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/myaws/cmd"
+	"github.com/aws-ug-cli/cmd"
 )
 
 const Version = "0.1.0"
@@ -14,4 +14,4 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
-} 
+}

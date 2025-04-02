@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/myaws/service"
+	"github.com/aws-ug-cli/service"
 	"github.com/spf13/cobra"
 )
 

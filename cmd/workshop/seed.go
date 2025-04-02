@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/aws-ug-cli/awsclient"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	"github.com/brianvoe/gofakeit/v7"
-	"github.com/myaws/awsclient"
 	"github.com/spf13/cobra"
 )
 

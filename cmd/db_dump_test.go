@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/aws-ug-cli/awsclient"
+	"github.com/aws-ug-cli/service"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
-	"github.com/myaws/awsclient"
-	"github.com/myaws/service"
 	"github.com/stretchr/testify/assert"
 )
 

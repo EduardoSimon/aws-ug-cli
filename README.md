@@ -1,10 +1,10 @@
-# myaws CLI
+# aws-ug-cli CLI
 
 A CLI tool to simplify AWS interactions, built with Go and the Cobra library.
 
 ## Overview
 
-`myaws` is a CLI tool that simplifies interactions with AWS services like S3 and ECS. It follows a layered architecture:
+`aws-ug-cli` is a CLI tool that simplifies interactions with AWS services like S3 and ECS. It follows a layered architecture:
 
 - **cmd layer**: Handles command configuration, argument parsing, and calls to the service layer
 - **service layer**: Contains the core logic for each command and interacts with the AWS client layer
@@ -32,14 +32,14 @@ To build the CLI, you need Go 1.19 or later.
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/myaws.git
-cd myaws
+git clone https://github.com/username/aws-ug-cli.git
+cd aws-ug-cli
 
 # Install dependencies
 go mod tidy
 
 # Build the CLI
-go build -o myaws
+go build -o aws-ug-cli
 
 # (Optional) Install the CLI
 go install
@@ -62,7 +62,7 @@ This will run all tests in the project, ensuring that commands like `version` wo
 Displays the current version of the CLI.
 
 ```bash
-myaws version
+aws-ug-cli version
 ```
 
 ### List App Config
@@ -71,13 +71,13 @@ Lists configuration files from an S3 bucket.
 
 ```bash
 # Basic usage (table output)
-myaws list-app-config --bucket your-bucket-name
+aws-ug-cli list-app-config --bucket your-bucket-name
 
 # With prefix filter
-myaws list-app-config --bucket your-bucket-name --prefix config/
+aws-ug-cli list-app-config --bucket your-bucket-name --prefix config/
 
 # JSON output
-myaws list-app-config --bucket your-bucket-name --output json
+aws-ug-cli list-app-config --bucket your-bucket-name --output json
 ```
 
 ### Restart App (Proof of Concept)
@@ -85,7 +85,7 @@ myaws list-app-config --bucket your-bucket-name --output json
 A stub command for restarting an application running on ECS.
 
 ```bash
-myaws restart-app --cluster your-cluster --service your-service
+aws-ug-cli restart-app --cluster your-cluster --service your-service
 ```
 
 This command is intentionally left incomplete for demonstration purposes. It will display a message indicating that the implementation is incomplete.

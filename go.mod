@@ -1,4 +1,4 @@
-module github.com/myaws
+module github.com/aws-ug-cli
 
 go 1.22
 

@@ -1,14 +1,14 @@
 package cmd
 
 import (
-	"github.com/myaws/cmd/workshop"
+	"github.com/aws-ug-cli/cmd/workshop"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "myaws",
-	Short: "myaws is a CLI tool for AWS interactions",
-	Long: `myaws is a CLI tool that simplifies AWS interactions.
+	Use:   "aws-ug-cli",
+	Short: "aws-ug-cli is a CLI tool for AWS interactions",
+	Long: `aws-ug-cli is a CLI tool that simplifies AWS interactions.
 It provides commands for working with S3, ECS, and other AWS services.`,
 }
 

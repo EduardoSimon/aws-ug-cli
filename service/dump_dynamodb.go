@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/aws-ug-cli/awsclient"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
-	"github.com/myaws/awsclient"
 )
 
 // DumpDynamoDBOptions contains options for dumping DynamoDB data
