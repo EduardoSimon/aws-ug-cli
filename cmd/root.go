@@ -10,6 +10,7 @@ var rootCmd = &cobra.Command{
 	Short: "aws-ug-cli is a CLI tool for AWS interactions",
 	Long: `aws-ug-cli is a CLI tool that simplifies AWS interactions.
 It provides commands for working with S3, ECS, and other AWS services.`,
+	SilenceUsage: true,
 }
 
 func Execute(version string) error {
