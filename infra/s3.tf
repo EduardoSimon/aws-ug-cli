@@ -21,7 +21,7 @@ resource "aws_s3_bucket_ownership_controls" "demo" {
 }
 
 resource "aws_s3_object" "config" {
-  for_each = toset(["app1", "app2"])
+  for_each = toset([for f in fileset("data", "*.config") : trimsuffix(f, ".config")])
 
   bucket = aws_s3_bucket.demo.id
   key    = "apps/config/${each.key}/config"
