@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/aws-ug-cli/cmd/apps"
 	"github.com/aws-ug-cli/cmd/workshop"
 	"github.com/spf13/cobra"
 )
@@ -26,4 +27,5 @@ func ExecuteForTest(version string) *cobra.Command {
 func init() {
 	rootCmd.AddCommand(workshop.WorkshopCmd)
 	rootCmd.AddCommand(dbCmd)
+	rootCmd.AddCommand(apps.AppsCmd)
 }

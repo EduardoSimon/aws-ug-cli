@@ -37,7 +37,7 @@ func (c *S3Client) ListFolders(ctx context.Context, bucket, prefix string) ([]st
 	}
 
 	if len(result.CommonPrefixes) == 0 {
-		return nil, fmt.Errorf("no folders found in bucket %s with prefix %s. Expected folder structure: apps/config/${app}/config", bucket, prefix)
+		return []string{}, nil
 	}
 
 	var folders []string
