@@ -70,7 +70,7 @@ aws-ug-cli version
 Lists configured apps.
 
 ```bash
-aws-ug-cli list-apps
+aws-ug-cli apps list
 ```
 
 ### Flush cache
@@ -84,7 +84,7 @@ aws-ug-cli cache flush --domain <your-domain>
 ### Dump the a db table
 
 ```bash
-aws-ug-cli db dump --table Products
+aws-ug-cli db dump --table products
 ```
 
 ## Architecture
